@@ -1,0 +1,25 @@
+{
+  "name": "survey-application",
+  "version": "1.0.0",
+  "description": "This is an application to collect information from businesses about the issues they are facing in their daily operations.",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manpreetsingh1151/Survey-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/manpreetsingh1151/Survey-Application/issues"
+  },
+  "homepage": "https://github.com/manpreetsingh1151/Survey-Application#readme",
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongoose": "^9.0.2"
+  }
+}
