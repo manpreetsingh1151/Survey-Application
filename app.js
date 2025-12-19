@@ -10,7 +10,9 @@ app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
 // serve static files
-app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, "public")));
+
+// app.use(express.static("public"));
 
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
@@ -28,17 +30,23 @@ app.use(async (req, res, next) => {
 
 app.post("/submit", async (req, res) => {
     try {
-    const businessName = req.body.bname;
-    const communicatorName = req.body.cname;
-    const issueDesciption = req.body.idescription;
-    const surveyorComments = req.body.scomments;
-    const cDate = req.body.tdate;
+    // const businessName = req.body.bname;
+    // const communicatorName = req.body.cname;
+    // const issueDesciption = req.body.idescription;
+    // const surveyorComments = req.body.scomments;
+    // const cDate = req.body.tdate;
+    // await Business.create({
+    //     businessName: businessName,
+    //     communicatorName: communicatorName,
+    //     issueDesciption: issueDesciption,
+    //     surveyorComments: surveyorComments,
+    //     cDate: cDate
     await Business.create({
-        businessName: businessName,
-        communicatorName: communicatorName,
-        issueDesciption: issueDesciption,
-        surveyorComments: surveyorComments,
-        cDate: cDate
+        businessName: req.body.bname,
+        communicatorName: req.body.cname,
+        issueDesciption: req.body.idescription,
+        surveyorComments: req.body.scomments,
+        cDate: req.body.tdate
     });
 
     res.send("Survey submitted successfully");
