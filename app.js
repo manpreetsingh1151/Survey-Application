@@ -1,5 +1,6 @@
 
 const express = require('express');
+const path = require("path");
 require("./db");
 const Business = require("./models/Business");
 
@@ -11,6 +12,10 @@ app.use(express.urlencoded({extended: true}));
 // serve static files
 app.use(express.static("public"));
 
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.post("/submit", async (req, res) => {
     try {
     const businessName = req.body.bname;
@@ -18,7 +23,6 @@ app.post("/submit", async (req, res) => {
     const issueDesciption = req.body.idescription;
     const surveyorComments = req.body.scomments;
     const cDate = req.body.tdate;
-    // const fDate = doc.cDate.toISOString().split("T")[0];
     await Business.create({
         businessName: businessName,
         communicatorName: communicatorName,
@@ -35,7 +39,3 @@ app.post("/submit", async (req, res) => {
 })
 
 module.exports = app;
-
-// app.listen(3000, () => {
-//     console.log("Server running on port 3000");
-// })
