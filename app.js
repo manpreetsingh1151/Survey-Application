@@ -1,7 +1,7 @@
 
 const express = require('express');
 const path = require("path");
-require("./db");
+const connectDB = require("./db");
 const Business = require("./models/Business");
 
 const app = express();
@@ -15,6 +15,16 @@ app.use(express.static("public"));
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
+
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+    next();
+  } catch (err) {
+    res.status(500).send("Database connection failed");
+  }
+});
+
 
 app.post("/submit", async (req, res) => {
     try {
