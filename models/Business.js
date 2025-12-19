@@ -7,6 +7,22 @@ const businessSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  communicatorName: {
+    type: String,
+    required: false
+  },
+  issueDesciption: {
+    type: String,
+    required: false
+  },
+  surveyorComments: {
+    type: String,
+    required: false
+  },
+  cDate: {
+    type: Date,
+    required: false
+  },
   createdAt: {
     type: Date,
     default: Date.now

@@ -14,18 +14,24 @@ app.use(express.static("public"));
 app.post("/submit", async (req, res) => {
     try {
     const businessName = req.body.bname;
+    const communicatorName = req.body.cname;
+    const issueDesciption = req.body.idescription;
+    const surveyorComments = req.body.scomments;
+    const cDate = req.body.tdate;
+    // const fDate = doc.cDate.toISOString().split("T")[0];
     await Business.create({
-        businessName: businessName
+        businessName: businessName,
+        communicatorName: communicatorName,
+        issueDesciption: issueDesciption,
+        surveyorComments: surveyorComments,
+        cDate: cDate
     });
 
-    // console.log("Business Name:", businessName);
-    res.send("Survey submitted successfully");
     res.send("Survey submitted successfully");
   } catch (error) {
     console.error(error);
     res.status(500).send("Error saving survey");
   }
-    
 })
 
 app.listen(3000, () => {
