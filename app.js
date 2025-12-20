@@ -27,20 +27,8 @@ app.use(async (req, res, next) => {
   }
 });
 
-
 app.post("/submit", async (req, res) => {
     try {
-    // const businessName = req.body.bname;
-    // const communicatorName = req.body.cname;
-    // const issueDesciption = req.body.idescription;
-    // const surveyorComments = req.body.scomments;
-    // const cDate = req.body.tdate;
-    // await Business.create({
-    //     businessName: businessName,
-    //     communicatorName: communicatorName,
-    //     issueDesciption: issueDesciption,
-    //     surveyorComments: surveyorComments,
-    //     cDate: cDate
     await Business.create({
         businessName: req.body.bname,
         communicatorName: req.body.cname,
@@ -55,5 +43,47 @@ app.post("/submit", async (req, res) => {
     res.status(500).send("Error saving survey");
   }
 })
+
+
+//search functionality////////////
+
+app.get("/search", async (req, res) => {
+  try {
+    const query = req.query.q;
+
+    const results = await Business.find({
+      businessName: { $regex: query, $options: "i" }
+    });
+
+    let html = `
+      <h2>Search Results</h2>
+      <a href="/">Back</a>
+      <ul>
+    `;
+
+    results.forEach(item => {
+      html += `
+        <li>
+          <strong>${item.businessName}</strong><br>
+          Communicator: ${item.communicatorName}<br>
+          Issue: ${item.issueDesciption}<br>
+          Date: ${item.cDate.toISOString().split("T")[0]}
+        </li><br>
+      `;
+    });
+
+    html += "</ul>";
+
+    res.send(html);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Error searching surveys");
+  }
+});
+
+
+//////////////////////////////
+
+
 
 module.exports = app;
